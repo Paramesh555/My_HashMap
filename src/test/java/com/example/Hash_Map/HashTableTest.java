@@ -314,4 +314,68 @@ public class HashTableTest {
         assertEquals(ht.get(e), "eee");
     }
 
+    @Test(description = """
+            added containsKey method""")
+    public void iter14(){
+        var ht = new Iter16_HashTable<Key, String>();
+
+        var a = new Key("AAA", 1);
+        var b = new Key("BBB", 2);
+        var c = new Key("CCC", 8);
+        var d = new Key("DDD", 4);
+        var e = new Key("EEE", 5);
+
+        ht.put(a, "aaa");
+        ht.put(b, "bbb");
+        ht.put(c, "ccc");
+        assertEquals(true,ht.containsKey(a));
+        assertEquals(false,ht.containsKey(d));
+
+    }
+
+    @Test(description = """
+            checking remove method""")
+    public void iter15(){
+        var ht = new Iter17_HashTable<Key, String>();
+
+        var a = new Key("AAA", 1);
+        var b = new Key("BBB", 2);
+
+        ht.put(a, "aaa");
+        ht.put(b, "bbb");
+
+        assertEquals("aaa",ht.remove(a));
+        assertEquals("bbb",ht.remove(b));
+        assertEquals(null,ht.remove(a));
+
+    }
+
+    @Test(description = """
+            cheking dynamic change in the array size""")
+
+    public void iter16(){
+        var ht = new Iter17_HashTable<Key, String>();
+
+        var a = new Key("AAA", 1);
+        var b = new Key("BBB", 2);
+        var c = new Key("CCC", 3);
+        var d = new Key("DDD", 4);
+        var e = new Key("EEE", 5);
+
+        ht.put(a, "aaa");
+        ht.put(b, "bbb");
+        ht.put(c, "ccc");
+        ht.put(d, "ddd");
+        ht.put(e, "eee");
+
+        assertEquals("aaa",ht.remove(a));
+        assertEquals("bbb",ht.remove(b));
+        assertEquals("ccc",ht.remove(c));
+        assertEquals("ddd",ht.remove(d));
+        assertEquals("eee",ht.remove(e));
+        assertEquals(null,ht.remove(e));
+
+    }
+
+
 }

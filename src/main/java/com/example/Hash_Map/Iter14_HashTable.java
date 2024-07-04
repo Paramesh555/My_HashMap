@@ -1,21 +1,25 @@
 package com.example.Hash_Map;
 
 public class Iter14_HashTable<K,V> extends Iter13_HashTable<K,V>{
-    private int rehashSize = 3;
     @Override
     protected final V putInsertion(K key, V value, int bucket) {
         V result = super.putInsertion(key, value, bucket);
 
-        if (size > rehashSize) {
-            rehash();
+        if (size >= 0.75*keys.length) {
+            rehash("increase");
         }
 
         return result;
     }
 
     @SuppressWarnings("unchecked")
-    private void rehash() {
-        var capacity = keys.length << 1;
+    protected void rehash(String type) {
+        var capacity = keys.length;
+        if(type.equals("increase"))
+             capacity = keys.length << 1;
+        else if (type.equals("decrease")) {
+            capacity = keys.length >> 1;
+        }
 
         if (capacity < 0) {//when exceeds the 32 bit it is start giving negative no's.
             throw new OutOfMemoryError();
@@ -29,7 +33,7 @@ public class Iter14_HashTable<K,V> extends Iter13_HashTable<K,V>{
 
         values = new Object[capacity];
 
-        rehashSize = (int) (capacity * 0.75);
+
 
         size = 0;
 
